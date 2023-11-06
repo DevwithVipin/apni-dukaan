@@ -2,7 +2,7 @@
     height:60px;
     display:flex;
     align-items:center;
-    background-color:#131921;
+    background-color: #050000;
     position:sticky;
     top:0;
     z-index:100;
@@ -48,8 +48,8 @@
     display:flex;
     justify-content:space-evenly;
 }
-.header__optionLineone{
-    font-size:10px;
+.header__optionLineOne{
+    font-size:11px;
 }
 .header__optionLinetwo{
     font-size:13px;

@@ -1,6 +1,7 @@
 import React from 'react';
 import './CheckoutProduct.css'
 import { useStateValue } from "./StateProvider";
+import Button from '@mui/material/Button';
 
 function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
     const [{ basket }, dispatch] = useStateValue();
@@ -20,8 +21,8 @@ function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
             <div className='checkoutProduct__info'>
                 <p className='checkoutProduct__title'>{title}</p>
                 <p className="checkoutProduct__price">
-                    <small>$</small>
-                    <strong>{price}</strong>
+                    <small>₹ </small>
+                    <strong>{price*100}</strong>
                 </p>
                 <div className="checkoutProduct__rating">
                     {Array(rating)
@@ -31,9 +32,11 @@ function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
                     ))}
                 </div>
                 {!hideButton && (
-                    <button onClick={removeFromBasket}>Remove from Basket</button>
+                    <button  onClick={removeFromBasket}>Remove from Cart</button>
+                    
                 )}
             </div>
+        
         </div>
     )
 }

@@ -1,13 +1,30 @@
 import React from 'react';
 import './Header.css';
+import { useNavigate } from "react-router-dom";
  import SearchIcon from '@mui/icons-material/Search';
  import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
  import { Link } from "react-router-dom";
  import { useStateValue } from "./StateProvider"
+ import { getAuth, signOut } from "firebase/auth";
 
 
 function Header() {
-    const [{ basket }, dispatch] = useStateValue();
+    const [{ basket,user }, dispatch] = useStateValue();
+    console.log(user);
+    const navigate = useNavigate();
+
+const auth = getAuth();
+const handleAuthenticaton= (e) => {
+  
+  if(user){
+  signOut(auth).then(() => {
+    navigate('/Login');
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});}
+}
+
   return (
     <div className="header">
        <Link to="/"> <img className="header__logo"
@@ -17,29 +34,35 @@ function Header() {
             <SearchIcon className="header__searchIcon" />
         </div>
         <div className="header__nav">
-          <Link to="/Login">
-        
-          <div className="header__option">
-            <span className="header__optionLineone">Hello Guest</span>
-            <span className="header__optionLinetwo">Sign In</span>
-          </div>  </Link>
-          <div className="header__option">
-            <span className="header__optionLineone">Returns</span>
-            <span className="header__optionLinetwo">& Orders</span>
+        <Link to={!user && '/login'}>
+          <div onClick={handleAuthenticaton} className="header__option">
+            <span className="header__optionLineOne">Hello {!user ? 'Guest' : user.email}</span>
+            <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
           </div>
+        </Link>
+
+        <Link to='/orders'>
           <div className="header__option">
-            <span className="header__optionLineone">Your</span>
-            <span className="header__optionLinetwo">Prime</span>
+            <span className="header__optionLineOne">Returns</span>
+            <span className="header__optionLineTwo">& Orders</span>
           </div>
-          <Link to="/Checkout">  <div className="header__optionBasket">
-            <ShoppingBasketIcon/>
-            <span className="header_optionLinetwo header_optionBasketCount">{basket?.length}</span>
-          </div></Link>
-        
+        </Link>
         
 
-
+        <div className="header__option">
+          <span className="header__optionLineOne">Your</span>
+          <span className="header__optionLineTwo">Prime</span>
         </div>
+
+        <Link to="/checkout">
+          <div className="header__optionBasket">
+            <ShoppingBasketIcon />
+            <span className="header__optionLineTwo header__basketCount">
+              {basket?.length}
+            </span>
+          </div>
+        </Link>
+      </div>
       
     </div>
   )
