@@ -1,0 +1,22 @@
+.orders {
+    padding: 20px 80px;
+    background-color: rgb(174, 222, 230);
+    overflow-x: visible;
+   
+ height: 100vh;
+   background-color: rgb(190, 238, 238);
+      
+}
+
+.orders > h1 {
+    margin: 30px 0;
+    justify-content: center;
+}
+.full-screen-div {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(190, 238, 238);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
